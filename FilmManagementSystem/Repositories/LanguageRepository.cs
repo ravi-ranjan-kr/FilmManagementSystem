@@ -8,9 +8,9 @@ namespace FilmManagementSystem.Repositories
     public class LanguageRepository
     {
         private readonly FilmManagementSystemContext context;
-        public LanguageRepository()
+        public LanguageRepository(FilmManagementSystemContext DbContext)
         {
-            context = new FilmManagementSystemContext();
+            context = DbContext;
         }
         public void AddLanguage(Language language) // add language details
         {

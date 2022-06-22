@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>addfilm works!</p>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\r\n  <table>\r\n    <tr>\r\n      <td>FilmId</td>\r\n      <td>\r\n        <input type=\"number\" name=\"\" id=\"\" [(ngModel)]=\"item.filmId\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>Description</td>\r\n      <td>\r\n        <input type=\"text\" name=\"\" id=\"\" [(ngModel)]=\"item.description\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>Title</td>\r\n      <td>\r\n        <input type=\"text\" name=\"\" id=\"\" [(ngModel)]=\"item.title\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>ReleaseYear</td>\r\n      <td>\r\n        <input type=\"number\" name=\"\" id=\"\" [(ngModel)]=\"item.releaseYear\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>LanguageId</td>\r\n      <td>\r\n        <input type=\"text\" name=\"\" id=\"\" [(ngModel)]=\"item.languageId\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>RentalDurationDays</td>\r\n      <td>\r\n        <input type=\"number\" name=\"\" id=\"\" [(ngModel)]=\"item.rentalDurationDays\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>LengthMins</td>\r\n      <td>\r\n        <input type=\"number\" name=\"\" id=\"\" [(ngModel)]=\"item.lengthMins\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>ReplacementCostCrores</td>\r\n      <td>\r\n        <input type=\"number\" name=\"\" id=\"\" [(ngModel)]=\"item.replacementCostCrores\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>Rating</td>\r\n      <td>\r\n        <input type=\"number\" name=\"\" id=\"\" [(ngModel)]=\"item.rating\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>SpecialFeatures</td>\r\n      <td>\r\n        <input type=\"text\" name=\"\" id=\"\" [(ngModel)]=\"item.specialFeatures\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>ActorId</td>\r\n      <td>\r\n        <input type=\"text\" name=\"\" id=\"\" [(ngModel)]=\"item.actorId\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td>CategoryId</td>\r\n      <td>\r\n        <input type=\"text\" name=\"\" id=\"\" [(ngModel)]=\"item.categoryId\">\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td colspan=1></td>\r\n      <button on-click=\"Add()\">Add</button>\r\n    </tr>\r\n  </table>\r\n</div>\r\n");
 
 /***/ }),
 
@@ -100,7 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1>Film Management</h1>\r\n<h2>Welcome</h2>\r\n<li class=\"nav-item\" [routerLinkActive]=\"['link-active']\">\r\n  <a class=\"nav-link text-dark\" [routerLink]=\"['/getallfilm']\">Films</a>\r\n</li>\r\n\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1>Film Management</h1>\r\n<h2>Welcome</h2>\r\n<ul>\r\n  <li class=\"nav-item\" [routerLinkActive]=\"['link-active']\">\r\n    <a class=\"nav-link text-dark\" [routerLink]=\"['/getallfilm']\">Films</a>\r\n  </li>\r\n  <li class=\"nav-item\" [routerLinkActive]=\"['link-active']\">\r\n    <a class=\"nav-link text-dark\" [routerLink]=\"['/addfilm']\">AddFilms</a>\r\n  </li>\r\n</ul>\r\n\r\n\r\n");
 
 /***/ }),
 
@@ -165,8 +165,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddfilmComponent", function() { return AddfilmComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_Models_film_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Models/film.model */ "./src/app/Models/film.model.ts");
-/* harmony import */ var src_app_Services_film_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/Services/film.service */ "./src/app/Services/film.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -176,6 +176,9 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -184,22 +187,18 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 var AddfilmComponent = /** @class */ (function () {
-    function AddfilmComponent(filmService, router) {
-        this.filmService = filmService;
+    function AddfilmComponent(http, item, router, baseUrl) {
         this.router = router;
+        http.post(baseUrl + '/AddFilm', item);
         this.item = new src_app_Models_film_model__WEBPACK_IMPORTED_MODULE_1__["Film"]();
     }
     AddfilmComponent.prototype.ngOnInit = function () {
     };
-    AddfilmComponent.prototype.Add = function () {
-        this.filmService.AddFilm(this.item).subscribe(function (data) {
-            console.log(data);
-        });
-        this.router.navigateByUrl('film-getallfilm');
-    };
     AddfilmComponent.ctorParameters = function () { return [
-        { type: src_app_Services_film_service__WEBPACK_IMPORTED_MODULE_2__["FilmService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
+        { type: src_app_Models_film_model__WEBPACK_IMPORTED_MODULE_1__["Film"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+        { type: String, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: ['BASE_URL',] }] }
     ]; };
     AddfilmComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -207,7 +206,8 @@ var AddfilmComponent = /** @class */ (function () {
             template: __importDefault(__webpack_require__(/*! raw-loader!./addfilm.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/addfilm/addfilm.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./addfilm.component.css */ "./src/app/Components/addfilm/addfilm.component.css")).default]
         }),
-        __metadata("design:paramtypes", [src_app_Services_film_service__WEBPACK_IMPORTED_MODULE_2__["FilmService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        __param(3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('BASE_URL')),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], src_app_Models_film_model__WEBPACK_IMPORTED_MODULE_1__["Film"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], String])
     ], AddfilmComponent);
     return AddfilmComponent;
 }());

@@ -7,9 +7,9 @@ namespace FilmManagementSystem.Repositories
     public class ActorRepository
     {
         private readonly FilmManagementSystemContext context;
-        public ActorRepository()
+        public ActorRepository(FilmManagementSystemContext DbContext)
         {
-            context = new FilmManagementSystemContext();
+            context = DbContext;
         }
         public void AddActor(Actor actor)   //Add row details to actor table
         {

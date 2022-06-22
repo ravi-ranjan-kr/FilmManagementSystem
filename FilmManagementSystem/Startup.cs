@@ -26,6 +26,7 @@ namespace FilmManagementSystem
                 options => options.UseSqlServer(Configuration.GetConnectionString("DbCon"))
             );
             services.AddControllersWithViews();
+            services.AddScoped<FilmManagementSystem.Repositories.FilmRepository>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

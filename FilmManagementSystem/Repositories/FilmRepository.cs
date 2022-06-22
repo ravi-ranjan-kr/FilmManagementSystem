@@ -8,9 +8,9 @@ namespace FilmManagementSystem.Repositories
     public class FilmRepository
     {
         private readonly FilmManagementSystemContext context;
-        public FilmRepository()
+        public FilmRepository(FilmManagementSystemContext DbContext)
         {
-            context = new FilmManagementSystemContext();
+            context = DbContext;
         }
         public void AddFilm(Film film) //Add new row details to film table
         {

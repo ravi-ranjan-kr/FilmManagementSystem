@@ -1,6 +1,7 @@
 ﻿using FilmManagementSystem.Models;
 using FilmManagementSystem.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,27 @@ namespace FilmManagementSystem.Controllers
     public class FilmController : ControllerBase
     {
         private FilmRepository FilmRepository;
-        public FilmController()
+        private readonly ILogger<FilmController> _Logger;
+        public FilmController(FilmRepository filmRepository, ILogger<FilmController> Logger)
         {
-            FilmRepository = new FilmRepository();
+            FilmRepository = filmRepository;
+            _Logger = Logger;
         }
         [HttpGet] //get all film data , Route("GetAllFilm")
         public IActionResult Get()
         {
-            return StatusCode(200, FilmRepository.GetAllFilm());
+            try
+            {
+                var films = FilmRepository.GetAllFilm();
+                return Ok(films);
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError("exception occured;ExceptionDetail:" + ex.Message);
+                _Logger.LogError("exception occured;ExceptionDetail:" + ex.InnerException);
+                _Logger.LogError("exception occured;ExceptionDetail:" + ex);
+                return BadRequest();
+            }
         }
         [HttpGet, Route("GetFilmTitle/{title}")] //get all film data by title
         public IActionResult GetTitle(string title)

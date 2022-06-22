@@ -7,9 +7,9 @@ namespace FilmManagementSystem.Repositories
     public class CategoryRepository
     {
         private readonly FilmManagementSystemContext context;
-        public CategoryRepository()
+        public CategoryRepository(FilmManagementSystemContext DbContext)
         {
-            context = new FilmManagementSystemContext();
+            context = DbContext;
         }
         public void AddCategory(Category category) // add category details
         {
