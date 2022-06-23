@@ -3,6 +3,7 @@ import { Film } from 'src/app/Models/film.model';
 import { FilmService } from 'src/app/Services/film.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-addfilm',
@@ -12,21 +13,21 @@ import { HttpClient } from '@angular/common/http';
 export class AddfilmComponent implements OnInit {
   item:Film;
 
-  constructor(http: HttpClient, item: Film, private router: Router,
-    @Inject('BASE_URL') baseUrl: string) {
-    http.post<any>(baseUrl + '/AddFilm', item);
-    this.item=new Film()
+  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.item = new Film();
    }
 
   ngOnInit(): void {
   }
-  //Add()
-  //{
-  //  this.filmService.AddFilm(this.item).subscribe(data=>
-  //    {
-  //      console.log(data);
-  //    })
-  //    this.router.navigateByUrl('film-getallfilm');
 
-  //}
+  Add() {
+    this.AddFilm(this.item).subscribe(data => {
+      console.log(data);
+    })
+    this.router.navigateByUrl('getallfilm');
+  }
+
+  AddFilm(item: Film): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'film/AddFilm',item);
+  }
 }

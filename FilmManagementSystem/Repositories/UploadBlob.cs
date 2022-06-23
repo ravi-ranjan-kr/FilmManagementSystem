@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace FilmManagementSystem.Repositories
@@ -29,17 +31,21 @@ namespace FilmManagementSystem.Repositories
             _containerName = _configuration["containerName"];
         }
 
-        public async Task<string> UploadFileToBlobAsync(Stream fileStream, string fileName, string contentType)
+        public async Task<string> UploadFileToBlobAsync(string blobdata, string blobName, string contentType)
         {
             try
             {
+                var messagePayload = JsonSerializer.Serialize(blobdata);
                 var container = new BlobContainerClient(_blobConnectionString, _containerName);
                 var createResponse = await container.CreateIfNotExistsAsync();
                 if (createResponse != null && createResponse.GetRawResponse().Status == 201)
                     await container.SetAccessPolicyAsync(PublicAccessType.Blob);
-                var blob = container.GetBlobClient(fileName);
+                var blob = container.GetBlobClient(blobName);
                 await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
-                await blob.UploadAsync(fileStream, new BlobHttpHeaders { ContentType = contentType });
+                using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(messagePayload)))
+                {
+                    await blob.UploadAsync(ms, new BlobHttpHeaders { ContentType = contentType });
+                }
                 return blob.Uri.ToString();
             }
             catch (Exception ex)

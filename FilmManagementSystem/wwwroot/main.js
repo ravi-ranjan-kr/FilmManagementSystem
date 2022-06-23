@@ -187,17 +187,26 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 var AddfilmComponent = /** @class */ (function () {
-    function AddfilmComponent(http, item, router, baseUrl) {
+    function AddfilmComponent(router, http, baseUrl) {
         this.router = router;
-        http.post(baseUrl + '/AddFilm', item);
+        this.http = http;
+        this.baseUrl = baseUrl;
         this.item = new src_app_Models_film_model__WEBPACK_IMPORTED_MODULE_1__["Film"]();
     }
     AddfilmComponent.prototype.ngOnInit = function () {
     };
+    AddfilmComponent.prototype.Add = function () {
+        this.AddFilm(this.item).subscribe(function (data) {
+            console.log(data);
+        });
+        this.router.navigateByUrl('getallfilm');
+    };
+    AddfilmComponent.prototype.AddFilm = function (item) {
+        return this.http.post(this.baseUrl + 'film/AddFilm', item);
+    };
     AddfilmComponent.ctorParameters = function () { return [
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-        { type: src_app_Models_film_model__WEBPACK_IMPORTED_MODULE_1__["Film"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
         { type: String, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: ['BASE_URL',] }] }
     ]; };
     AddfilmComponent = __decorate([
@@ -206,8 +215,8 @@ var AddfilmComponent = /** @class */ (function () {
             template: __importDefault(__webpack_require__(/*! raw-loader!./addfilm.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/Components/addfilm/addfilm.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./addfilm.component.css */ "./src/app/Components/addfilm/addfilm.component.css")).default]
         }),
-        __param(3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('BASE_URL')),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], src_app_Models_film_model__WEBPACK_IMPORTED_MODULE_1__["Film"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], String])
+        __param(2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('BASE_URL')),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], String])
     ], AddfilmComponent);
     return AddfilmComponent;
 }());
@@ -477,95 +486,6 @@ var Film = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/Services/film.service.ts":
-/*!******************************************!*\
-  !*** ./src/app/Services/film.service.ts ***!
-  \******************************************/
-/*! exports provided: FilmService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilmService", function() { return FilmService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-var FilmService = /** @class */ (function () {
-    function FilmService(http, baseUrl) {
-        this.http = http;
-        this.baseUrl = baseUrl;
-        this.api_path = 'https://localhost:44331/';
-    }
-    FilmService.prototype.GetAllFilm = function () {
-        return this.http.get(this.baseUrl + '/api/film/GetAllFilm');
-    };
-    FilmService.prototype.GetFilmByTitle = function (title) {
-        return this.http.get(this.api_path + '/GetFilmTitle/' + title);
-    };
-    FilmService.prototype.GetFilmByReleaseYear = function (releaseYear) {
-        return this.http.get(this.api_path + '/GetFilmByReleaseYear/' + releaseYear);
-    };
-    FilmService.prototype.GetFilmByRating = function (rating) {
-        return this.http.get(this.api_path + '/GetFilmByRating/' + rating);
-    };
-    FilmService.prototype.GetFilmActorId = function (actorId) {
-        return this.http.get(this.api_path + '/GetFilmActorId/' + actorId);
-    };
-    FilmService.prototype.GetFilmCategoryId = function (categoryId) {
-        return this.http.get(this.api_path + '/GetFilmCategoryId/' + categoryId);
-    };
-    FilmService.prototype.GetFilmLanguageId = function (languageId) {
-        return this.http.get(this.api_path + '/GetFilmLanguageId/' + languageId);
-    };
-    FilmService.prototype.AddFilm = function (item) {
-        return this.http.post(this.api_path + '/AddFilm', item);
-    };
-    FilmService.prototype.EditFilm = function (item) {
-        return this.http.put(this.api_path + '/EditFilm', item);
-    };
-    FilmService.prototype.DeleteFilmByTitle = function (title) {
-        return this.http.delete(this.api_path + '/DeleteFilmTitle/' + title);
-    };
-    FilmService.prototype.DeleteFilmByReleaseYear = function (releaseYear) {
-        return this.http.delete(this.api_path + '/DeleteFilmReleaseYear/' + releaseYear);
-    };
-    FilmService.prototype.DeleteFilmByRating = function (rating) {
-        return this.http.delete(this.api_path + '/DeleteFilmRating/' + rating);
-    };
-    FilmService.ctorParameters = function () { return [
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
-        { type: String, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: ['BASE_URL',] }] }
-    ]; };
-    FilmService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-            providedIn: 'root'
-        }),
-        __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('BASE_URL')),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], String])
-    ], FilmService);
-    return FilmService;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/app-route.module.ts":
 /*!*************************************!*\
   !*** ./src/app/app-route.module.ts ***!
@@ -689,8 +609,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_getallfilm_getallfilm_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Components/getallfilm/getallfilm.component */ "./src/app/Components/getallfilm/getallfilm.component.ts");
 /* harmony import */ var _Components_editfilm_editfilm_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Components/editfilm/editfilm.component */ "./src/app/Components/editfilm/editfilm.component.ts");
 /* harmony import */ var _Components_deletefilmbytitle_deletefilmbytitle_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Components/deletefilmbytitle/deletefilmbytitle.component */ "./src/app/Components/deletefilmbytitle/deletefilmbytitle.component.ts");
-/* harmony import */ var _Services_film_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Services/film.service */ "./src/app/Services/film.service.ts");
-/* harmony import */ var _app_route_module__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./app-route.module */ "./src/app/app-route.module.ts");
+/* harmony import */ var _app_route_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app-route.module */ "./src/app/app-route.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -700,7 +619,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
 
 
 
@@ -735,11 +653,9 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"].withServerTransition({ appId: 'ng-cli-universal' }),
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
-                _app_route_module__WEBPACK_IMPORTED_MODULE_14__["AppRoutingModule"]
+                _app_route_module__WEBPACK_IMPORTED_MODULE_13__["AppRoutingModule"]
             ],
-            providers: [
-                _Services_film_service__WEBPACK_IMPORTED_MODULE_13__["FilmService"]
-            ],
+            providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
         })
     ], AppModule);

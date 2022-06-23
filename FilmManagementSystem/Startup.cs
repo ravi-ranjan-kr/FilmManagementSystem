@@ -27,6 +27,7 @@ namespace FilmManagementSystem
             );
             services.AddControllersWithViews();
             services.AddScoped<FilmManagementSystem.Repositories.FilmRepository>();
+            services.AddScoped<FilmManagementSystem.Repositories.UploadBlob>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

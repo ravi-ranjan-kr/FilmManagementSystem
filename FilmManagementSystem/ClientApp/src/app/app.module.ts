@@ -35,7 +35,6 @@ import { AppRoutingModule } from './app-route.module';
     AppRoutingModule
   ],
   providers: [
-    FilmService
   ],
   bootstrap: [AppComponent]
 })

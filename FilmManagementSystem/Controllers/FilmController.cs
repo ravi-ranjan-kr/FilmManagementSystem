@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FilmManagementSystem.Controllers
 {
@@ -15,10 +17,12 @@ namespace FilmManagementSystem.Controllers
     {
         private FilmRepository FilmRepository;
         private readonly ILogger<FilmController> _Logger;
-        public FilmController(FilmRepository filmRepository, ILogger<FilmController> Logger)
+        public UploadBlob _uploadToBlob;
+        public FilmController(FilmRepository filmRepository, UploadBlob uploadToBlob, ILogger<FilmController> Logger)
         {
             FilmRepository = filmRepository;
             _Logger = Logger;
+            _uploadToBlob = uploadToBlob;
         }
         [HttpGet] //get all film data , Route("GetAllFilm")
         public IActionResult Get()
@@ -68,11 +72,38 @@ namespace FilmManagementSystem.Controllers
         }
 
 
-        [HttpPost, Route("AddFilm")] // add film data
-        public IActionResult Add(Film film)
+        [HttpPost]
+        [Route("AddFilm")]// add film data
+        public async Task<IActionResult> Add(Film film)
         {
-            FilmRepository.AddFilm(film);
-            return StatusCode(200, "Record Added");
+            try
+            {
+                dynamic filmdata = new JObject();
+                filmdata.FilmId = film.FilmId;
+                filmdata.Description = film.Description;
+                filmdata.Title = film.Title;
+                filmdata.ReleaseYear = film.ReleaseYear;
+                filmdata.Language = film.LanguageId;
+                filmdata.RentalDurationDays = film.RentalDurationDays;
+                filmdata.LengthMins = film.LengthMins;
+                filmdata.ReplacementCostCrores = film.ReplacementCostCrores;
+                filmdata.Rating = film.Rating;
+                filmdata.SpecialFeatures = film.SpecialFeatures;
+                filmdata.Actor = film.ActorId;
+                filmdata.Category = film.CategoryId;
+
+                string blobfilename = string.Concat("FilmData_", film.Title,".json");
+                var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(filmdata);
+                await _uploadToBlob.UploadFileToBlobAsync(jsonString, blobfilename, "application/json");
+                return Ok("Film Added");
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError("exception occured;ExceptionDetail:" + ex.Message);
+                _Logger.LogError("exception occured;ExceptionDetail:" + ex.InnerException);
+                _Logger.LogError("exception occured;ExceptionDetail:" + ex);
+                return BadRequest();
+            }
         }
         [HttpPut, Route("EditFilm")] //update film data
         public IActionResult Edit(Film film)
