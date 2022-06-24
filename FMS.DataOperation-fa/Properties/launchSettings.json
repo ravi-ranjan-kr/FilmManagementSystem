@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "FMS.DataOperation_fa": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7167",
+      "launchBrowser": false
+    }
+  }
+}

@@ -91,6 +91,7 @@ namespace FilmManagementSystem.Controllers
                 filmdata.SpecialFeatures = film.SpecialFeatures;
                 filmdata.Actor = film.ActorId;
                 filmdata.Category = film.CategoryId;
+                filmdata.Entity = "Film";
 
                 string blobfilename = string.Concat("FilmData_", film.Title,".json");
                 var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(filmdata);

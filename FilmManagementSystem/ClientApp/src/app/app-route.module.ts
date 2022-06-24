@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'fetch-data', component: FetchDataComponent },
   {path:'addfilm',component:AddfilmComponent},
   {path:'deletefilmbytitle',component:DeletefilmbytitleComponent},
-  {path:'editfilm',component:EditfilmComponent},
+  { path:'editfilm/:filmId',component:EditfilmComponent},
   {path:'getallfilm',component:GetallfilmComponent}
 ];
 
