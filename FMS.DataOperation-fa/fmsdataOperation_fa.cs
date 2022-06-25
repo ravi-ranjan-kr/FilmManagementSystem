@@ -56,5 +56,72 @@ namespace FMS.DataOperation_fa
                 return new BadRequestObjectResult(ex.Message);
             }
         }
+
+        [FunctionName("PostFMSActor")]
+        public async Task<IActionResult> PostActorAsync(
+    [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Actor/Add")] HttpRequest req, ILogger log)
+        {
+            log.LogInformation("C# HTTP POST/post trigger function processed a request.");
+            try
+            {
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                Actor data = JsonConvert.DeserializeObject<Actor>(requestBody);
+
+                Actor actor = new Actor
+                {
+                    ActorId = data.ActorId,
+                    FirstName = data.FirstName,
+                    LastName = data.LastName,
+                };
+                var entity = await _context.Actors.AddAsync(actor);
+                await _context.SaveChangesAsync();
+                return new OkObjectResult(JsonConvert.SerializeObject(entity.Entity));
+            }
+            catch (Exception ex)
+            {
+                log.LogError("exception occured;ExceptionDetail:" + ex.Message);
+                log.LogError("exception occured;ExceptionDetail:" + ex.InnerException);
+                log.LogError("exception occured;ExceptionDetail:" + ex);
+                return new BadRequestObjectResult(ex.Message);
+            }
+        }
+
+        [FunctionName("UpdateFMS")]
+        public async Task<IActionResult> UpdateFilmAsync(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "Film/Update")] HttpRequest req, ILogger log)
+        {
+            log.LogInformation("C# HTTP POST/post trigger function processed a request.");
+            try
+            {
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                Film data = JsonConvert.DeserializeObject<Film>(requestBody);
+
+                Film film = new Film
+                {
+                    FilmId = data.FilmId,
+                    Description = data.Description,
+                    Title = data.Title,
+                    ReleaseYear = data.ReleaseYear,
+                    LanguageId = data.LanguageId,
+                    RentalDurationDays = data.RentalDurationDays,
+                    LengthMins = data.LengthMins,
+                    ReplacementCostCrores = data.ReplacementCostCrores,
+                    Rating = data.Rating,
+                    SpecialFeatures = data.SpecialFeatures,
+                    ActorId = data.ActorId,
+                    CategoryId = data.CategoryId
+                };
+                var entity =  _context.Films.Update(film);
+                await _context.SaveChangesAsync();
+                return new OkObjectResult(JsonConvert.SerializeObject(entity.Entity));
+            }
+            catch (Exception ex)
+            {
+                log.LogError("exception occured;ExceptionDetail:" + ex.Message);
+                log.LogError("exception occured;ExceptionDetail:" + ex.InnerException);
+                log.LogError("exception occured;ExceptionDetail:" + ex);
+                return new BadRequestObjectResult(ex.Message);
+            }
+        }
     }
 }

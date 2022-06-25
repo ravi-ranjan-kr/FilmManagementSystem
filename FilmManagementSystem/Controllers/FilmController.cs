@@ -83,14 +83,14 @@ namespace FilmManagementSystem.Controllers
                 filmdata.Description = film.Description;
                 filmdata.Title = film.Title;
                 filmdata.ReleaseYear = film.ReleaseYear;
-                filmdata.Language = film.LanguageId;
+                filmdata.LanguageID = film.LanguageId;
                 filmdata.RentalDurationDays = film.RentalDurationDays;
                 filmdata.LengthMins = film.LengthMins;
                 filmdata.ReplacementCostCrores = film.ReplacementCostCrores;
                 filmdata.Rating = film.Rating;
                 filmdata.SpecialFeatures = film.SpecialFeatures;
-                filmdata.Actor = film.ActorId;
-                filmdata.Category = film.CategoryId;
+                filmdata.ActorId = film.ActorId;
+                filmdata.CategoryId = film.CategoryId;
                 filmdata.Entity = "Film";
 
                 string blobfilename = string.Concat("FilmData_", film.Title,".json");
